@@ -5,7 +5,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/taigrr/systemctl/properties"
+	"github.com/CloudAceEmma/systemctl/properties"
 )
 
 // Reload systemd manager configuration.
@@ -164,6 +164,16 @@ func IsFailed(ctx context.Context, unit string, opts Options) (bool, error) {
 // return an error. Similarly, see Unmask.
 func Mask(ctx context.Context, unit string, opts Options) error {
 	args := []string{"mask", "--system", unit}
+	if opts.UserMode {
+		args[1] = "--user"
+	}
+	_, _, _, err := execute(ctx, args)
+	return err
+}
+
+// Reload one or more units specified on the command line.
+func Reload(ctx context.Context, unit string, opts Options) error {
+	args := []string{"reload", "--system", unit}
 	if opts.UserMode {
 		args[1] = "--user"
 	}

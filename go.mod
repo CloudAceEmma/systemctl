@@ -1,3 +1,3 @@
-module github.com/taigrr/systemctl
+module github.com/CloudAceEmma/systemctl
 
-go 1.12
+go 1.22.1
